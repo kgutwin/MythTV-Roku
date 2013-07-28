@@ -35,10 +35,12 @@ Function showVideoScreen(episode As Object)
         msg = wait(0, port)
 
         if type(msg) = "roVideoScreenEvent" then
-            print "showHomeScreen | msg = "; msg.getMessage() " | index = "; msg.GetIndex()
+            print "showVideoScreen | msg = "; msg.getMessage() " | index = "; msg.GetIndex()
             if msg.isScreenClosed()
                 print "Screen closed"
                 exit while
+            elseif msg.isPlaybackPosition()
+                print "playback position: "; msg.GetIndex()
             elseif msg.isRequestFailed()
                 print "Video request failure: "; msg.GetIndex(); " " msg.GetData() 
             elseif msg.isStatusMessage()

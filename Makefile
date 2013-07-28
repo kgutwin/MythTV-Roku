@@ -18,7 +18,7 @@
 PKGREL = ../../packages
 ZIPREL = ../../zips
 SOURCEREL = ..
-APPNAME = videoplayer
+APPNAME = MythTV-Roku
 VERSION = 1.0
 
 .PHONY: all videoplayer
@@ -49,8 +49,7 @@ videoplayer:
 	then \
 		(zip -9 -r "$(ZIPREL)/$(APPNAME).zip" .); \
 		(zip -d "$(ZIPREL)/$(APPNAME).zip" Makefile); \
-		(zip -d "$(ZIPREL)/$(APPNAME).zip" xml/*); \
-		(zip -d "$(ZIPREL)/$(APPNAME).zip" artwork/*.jpg); \
+		(zip -d "$(ZIPREL)/$(APPNAME).zip" .git); \
 	else \
 		echo "Source for $(APPNAME) not found at $(SOURCEREL)/$(APPNAME)"; \
 	fi
