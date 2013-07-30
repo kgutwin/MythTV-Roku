@@ -12,7 +12,7 @@ Function InitCategoryFeedConnection() As Object
 
     conn = CreateObject("roAssociativeArray")
 
-    conn.UrlPrefix   = "http://mythbackend/mythtvroku"
+    conn.UrlPrefix   = "http://mythbackend.gutwin.org/mythtvroku"
     conn.UrlCategoryFeed = conn.UrlPrefix + "/roku.xml"
 
     conn.Timer = CreateObject("roTimespan")
