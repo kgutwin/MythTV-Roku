@@ -140,6 +140,8 @@ Function parse_show_feed(xml As Object, feed As Object) As Void
         item.Runtime          = validstr(curShow.runtime.GetText())
         item.HDBifUrl         = validstr(curShow.hdBifUrl.GetText())
         item.SDBifUrl         = validstr(curShow.sdBifUrl.GetText())
+        item.Chanid           = validstr(curShow.chanid.GetText())
+        item.StartTime        = validstr(curshow.starttime.GetText())
 
         'map xml attributes into screen specific variables
         item.ShortDescriptionLine1 = item.Title 
