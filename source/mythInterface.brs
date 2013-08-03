@@ -19,7 +19,7 @@ Function sendDelete(episode As Object, forgetOld As Boolean)
         return -1
     end if
 
-    print r
+    episode.Deleted = true
     return 0
 
 End Function

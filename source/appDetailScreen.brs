@@ -60,14 +60,28 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
                     showVideoScreen(showList[showIndex])
                 endif
                 if msg.GetIndex() = 2
-		    print "Perform delete"
-		    deleteResult = sendDelete(showList[showIndex], false)
-		    if deleteResult <> -1
-		        ShowDialog1Button("Delete command sent", "The show will be deleted as soon as possible.", "OK")
-		    endif
+                    OK = ShowDialog2Buttons("Delete", "Delete this episode?", "Cancel", "OK")
+                    if OK = 1
+		        print "Perform delete"
+		        deleteResult = sendDelete(showList[showIndex], false)
+		        if deleteResult = -1
+		            ShowDialog1Button("Error", "There was a problem sending the delete command.", "OK")
+                        else
+                            screen.Close()
+		        endif
+                    endif
                 endif
                 if msg.GetIndex() = 3
-                    print "Perform delete+rerecord"
+                    OK = ShowDialog2Buttons("Delete", "Delete this episode and allow re-record?", "Cancel", "OK")
+                    if OK = 1
+		        print "Perform delete+rerecord"
+		        deleteResult = sendDelete(showList[showIndex], true)
+		        if deleteResult = -1
+		            ShowDialog1Button("Error", "There was a problem sending the delete command.", "OK")
+                        else
+                            screen.Close()
+		        endif
+                    endif
                 endif
                 print "Button pressed: "; msg.GetIndex(); " " msg.GetData()
             end if
