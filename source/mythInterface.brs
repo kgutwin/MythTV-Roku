@@ -14,12 +14,12 @@ Function sendDelete(episode As Object, forgetOld As Boolean)
         h.AddParam("forget_old", "yes")
     end if
 
-
     r = h.GetToStringWithTimeout(30)
     if r = "" then
         return -1
     end if
 
+    print r
     return 0
 
 End Function
