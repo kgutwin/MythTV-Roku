@@ -67,7 +67,7 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
 		        if deleteResult = -1
 		            ShowDialog1Button("Error", "There was a problem sending the delete command.", "OK")
                         else
-                            screen.Close()
+                            ShowDialog1Button("Delete", "The episode will be deleted as soon as possible.", "OK")
 		        endif
                     endif
                 endif
@@ -79,7 +79,7 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
 		        if deleteResult = -1
 		            ShowDialog1Button("Error", "There was a problem sending the delete command.", "OK")
                         else
-                            screen.Close()
+                            ShowDialog1Button("Delete", "The episode will be deleted as soon as possible.", "OK")
 		        endif
                     endif
                 endif
