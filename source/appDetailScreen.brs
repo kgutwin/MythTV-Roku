@@ -63,9 +63,7 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
 		    print "Perform delete"
 		    deleteResult = sendDelete(showList[showIndex])
 		    if deleteResult <> -1
-		        ShowDialog1Button("Delete command sent", 
-                                          "The show will be deleted as soon as possible.", 
-                                          "OK")
+		        ShowDialog1Button("Delete command sent", "The show will be deleted as soon as possible.", "OK")
 		    endif
                 endif
                 if msg.GetIndex() = 3
