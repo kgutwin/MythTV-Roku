@@ -88,6 +88,7 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
                     endif
                 endif
                 print "Button pressed: "; msg.GetIndex(); " " msg.GetData()
+                refreshShowDetail(screen, showList, showIndex)
             end if
         else
             print "Unexpected message class: "; type(msg)

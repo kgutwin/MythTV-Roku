@@ -50,8 +50,9 @@ Function showVideoScreen(episode As Object)
                 if startPosition <> 0 and msg.GetIndex() < 10
                     print "reseeking to position "; itostr(startPosition * 1000)
                     screen.Seek(startPosition * 1000)
+                else
+                    sendBookmark(episode, msg.GetIndex())
                 end if
-                sendBookmark(episode, msg.GetIndex())
             elseif msg.isRequestFailed()
                 print "Video request failure: "; msg.GetIndex(); " " msg.GetData() 
             elseif msg.isStatusMessage()
