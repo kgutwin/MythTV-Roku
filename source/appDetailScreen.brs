@@ -57,7 +57,7 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
             else if msg.isButtonPressed() 
                 print "ButtonPressed"
                 if msg.GetIndex() = 1
-                    sendBookmark(episode, 0)
+                    sendBookmark(showList[showIndex], 0)
                     showVideoScreen(showList[showIndex])
                 endif
                 if msg.GetIndex() = 4
