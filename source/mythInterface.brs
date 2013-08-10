@@ -7,7 +7,7 @@ Function sendBookmark(episode As Object, position As Integer)
     endif
 
     h = NewHttp("http://mythbackend.gutwin.org/cgi-bin/bookmark.py")
-    h.AddParam("pos", position)
+    h.AddParam("pos", itostr(position))
     h.AddParam("chanid", episode.Chanid)
     h.AddParam("starttime", episode.StartTime)
 
