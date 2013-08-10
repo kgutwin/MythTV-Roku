@@ -24,6 +24,12 @@ Function showVideoScreen(episode As Object)
     screen = CreateObject("roVideoScreen")
     screen.SetMessagePort(port)
 
+    syslog = CreateObject("roSystemLog")
+    syslog.SetMessagePort(port)
+    syslog.EnableType("http.connect")
+    syslog.EnableType("http.error")
+    syslog.EnableType("bandwidth.minute")
+
     startPosition = getBookmark(episode)
 
     screen.Show()
@@ -61,6 +67,15 @@ Function showVideoScreen(episode As Object)
                 print "Button pressed: "; msg.GetIndex(); " " msg.GetData()
             else
                 print "Unexpected event type: "; msg.GetType()
+            end if
+	elseif type(msg) = "roSystemLogEvent"
+            i = msg.GetInfo()
+            if i.LogType = "http.error" 
+                print "http.error: "; i.HttpCode; " URL: "; i.Url
+            elseif i.LogType = "http.connect"
+                print "http.connect: "; i.OrigUrl; " "; i.TargetIp
+            elseif i.LogType = "bandwidth.minute"
+                print "bandwidth: "; i.Bandwidth
             end if
         else
             print "Unexpected message class: "; type(msg)
