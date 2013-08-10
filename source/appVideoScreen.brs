@@ -29,8 +29,10 @@ Function showVideoScreen(episode As Object)
     screen.Show()
     screen.SetContent(episode)
     screen.SetPositionNotificationPeriod(10)
-    screen.Seek(position * 1000)
     screen.Show()
+
+    print "seeking to position "; itostr(position * 1000)
+    screen.Seek(position * 1000)
 
     'Uncomment his line to dump the contents of the episode to be played
     'PrintAA(episode)
