@@ -24,15 +24,15 @@ Function showVideoScreen(episode As Object)
     screen = CreateObject("roVideoScreen")
     screen.SetMessagePort(port)
 
-    position = getBookmark(episode)
+    startPosition = getBookmark(episode)
 
     screen.Show()
     screen.SetContent(episode)
     screen.SetPositionNotificationPeriod(10)
     screen.Show()
 
-    print "seeking to position "; itostr(position * 1000)
-    screen.Seek(position * 1000)
+    print "seeking to position "; itostr(startPosition * 1000)
+    screen.Seek(startPosition * 1000)
 
     'Uncomment his line to dump the contents of the episode to be played
     'PrintAA(episode)
@@ -47,6 +47,10 @@ Function showVideoScreen(episode As Object)
                 exit while
             elseif msg.isPlaybackPosition()
                 print "playback position: "; msg.GetIndex()
+                if startPosition <> 0 and msg.GetIndex() < 10
+                    print "reseeking to position "; itostr(startPosition * 1000)
+                    screen.Seek(startPosition * 1000)
+                end if
                 sendBookmark(episode, msg.GetIndex())
             elseif msg.isRequestFailed()
                 print "Video request failure: "; msg.GetIndex(); " " msg.GetData() 
