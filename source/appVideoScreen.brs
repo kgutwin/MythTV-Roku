@@ -61,6 +61,7 @@ Function showVideoScreen(episode As Object)
                 end if
             elseif msg.isRequestFailed()
                 print "Video request failure: "; msg.GetIndex(); " " msg.GetData() 
+                print msg.GetInfo()
             elseif msg.isStatusMessage()
                 print "Video status: "; msg.GetIndex(); " " msg.GetData() 
             elseif msg.isButtonPressed()
