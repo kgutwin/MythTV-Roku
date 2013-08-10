@@ -57,6 +57,10 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
             else if msg.isButtonPressed() 
                 print "ButtonPressed"
                 if msg.GetIndex() = 1
+                    sendBookmark(episode, 0)
+                    showVideoScreen(showList[showIndex])
+                endif
+                if msg.GetIndex() = 4
                     showVideoScreen(showList[showIndex])
                 endif
                 if msg.GetIndex() = 2
@@ -131,7 +135,12 @@ Function refreshShowDetail(screen As Object, showList As Object, showIndex as In
     PrintAA(show)
 
     screen.ClearButtons()
-    screen.AddButton(1, "Play")    
+    if getBookmark(show) = 0
+        screen.AddButton(1, "Play")    
+    else
+        screen.AddButton(4, "Resume")
+        screen.AddButton(1, "Play from beginning")
+    end if
     screen.AddButton(2, "Delete")
     screen.AddButton(3, "Delete and re-record")
     screen.SetContent(show)
