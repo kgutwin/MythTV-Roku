@@ -139,6 +139,7 @@ Function ParseCategoryNode(xml As Object) As dynamic
         o.HDPosterURL = xml@hd_img
     elseif xml.GetName() = "categoryLeaf" then
         o.Type = "normal"
+        return o
     elseif xml.GetName() = "specialCategory" then
         if invalid <> xml.GetAttributes() then
             for each a in xml.GetAttributes()
