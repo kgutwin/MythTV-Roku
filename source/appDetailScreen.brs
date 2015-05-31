@@ -58,28 +58,24 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
                 print "ButtonPressed"
                 if msg.GetIndex() = 1
                     sendBookmark(showList[showIndex], 0)
-                    showVideoScreen(showList[showIndex])
+                    showVideoScreen(showList, showIndex)
                 endif
                 if msg.GetIndex() = 4
-                    showVideoScreen(showList[showIndex])
+                    showVideoScreen(showList, showIndex)
                 endif
+                if msg.GetIndex() = 5
+                    if showList[showIndex].Autoplay
+                        showList[showIndex].Autoplay = false
+                    else
+                        showList[showIndex].Autoplay = true
+                    end if
+                end if
                 if msg.GetIndex() = 2
-                    OK = ShowDialog2Buttons("Delete", "Delete this episode?", "Cancel", "OK")
-                    if OK = 1
+                    OK = ShowDialog3Buttons("Delete", "Delete this episode?", "Cancel", "Delete", "Del & Re-record")
+                    if OK > 0
 		        print "Perform delete"
-		        deleteResult = sendDelete(showList[showIndex], false)
-		        if deleteResult = -1
-		            ShowDialog1Button("Error", "There was a problem sending the delete command.", "OK")
-                        else
-                            ShowDialog1Button("Delete", "The episode will be deleted as soon as possible.", "OK")
-		        endif
-                    endif
-                endif
-                if msg.GetIndex() = 3
-                    OK = ShowDialog2Buttons("Delete", "Delete this episode and allow re-record?", "Cancel", "OK")
-                    if OK = 1
-		        print "Perform delete+rerecord"
-		        deleteResult = sendDelete(showList[showIndex], true)
+			rerecord = (OK > 1)
+		        deleteResult = sendDelete(showList[showIndex], rerecord)
 		        if deleteResult = -1
 		            ShowDialog1Button("Error", "There was a problem sending the delete command.", "OK")
                         else
@@ -142,8 +138,13 @@ Function refreshShowDetail(screen As Object, showList As Object, showIndex as In
         screen.AddButton(4, "Resume")
         screen.AddButton(1, "Play from beginning")
     end if
+    if show.Autoplay
+        autoplayEnabled = "On"
+    else
+        autoplayEnabled = "Off"
+    end if
+    screen.AddButton(5, "Autoplay: " + autoplayEnabled)
     screen.AddButton(2, "Delete")
-    screen.AddButton(3, "Delete and re-record")
     screen.SetContent(show)
     screen.Show()
 

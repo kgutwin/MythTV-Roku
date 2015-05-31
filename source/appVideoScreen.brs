@@ -13,7 +13,8 @@
 '** error conditions so it's important to monitor these to
 '** understand what's going on, especially in the case of errors
 '***********************************************************  
-Function showVideoScreen(episode As Object)
+Function showVideoScreen(showList As Object, showIndex as Integer)
+    episode = showList[showIndex]
 
     if type(episode) <> "roAssociativeArray" then
         print "invalid data passed to showVideoScreen"

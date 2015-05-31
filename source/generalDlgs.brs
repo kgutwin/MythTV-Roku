@@ -148,3 +148,42 @@ Function ShowDialog2Buttons(title As dynamic, text As dynamic, but1 As String, b
         endif
     end while
 End Function
+
+'******************************************************
+'Show 3 button dialog
+'Return: 0=first button or screen closed, 1=second button, 2=third button
+'******************************************************
+
+Function ShowDialog3Buttons(title As dynamic, text As dynamic, but1 As String, but2 As String, but3 As String) As Integer
+    if not isstr(title) title = ""
+    if not isstr(text) text = ""
+
+    Dbg("DIALOG3 ", title + " - " + text)
+
+    port = CreateObject("roMessagePort")
+    dialog = CreateObject("roMessageDialog")
+    dialog.SetMessagePort(port)
+
+    dialog.SetTitle(title)
+    dialog.SetText(text)
+    dialog.AddButton(0, but1)
+    dialog.AddButton(1, but2)
+    dialog.AddButton(2, but3)
+    dialog.Show()
+
+    while true
+        dlgMsg = wait(0, dialog.GetMessagePort())
+
+        if type(dlgMsg) = "roMessageDialogEvent"
+            if dlgMsg.isScreenClosed()
+                print "Screen closed"
+                dialog = invalid
+                return 0
+            else if dlgMsg.isButtonPressed()
+                print "Button pressed: "; dlgMsg.GetIndex(); " " dlgMsg.GetData()
+                dialog = invalid
+                return dlgMsg.GetIndex()
+            endif
+        endif
+    end while
+End Function
