@@ -59,6 +59,19 @@ Function showVideoScreen(episode As Object)
                 else
                     sendBookmark(episode, msg.GetIndex())
                 end if
+                ' notify about ending time
+                if (episode.duration - msg.GetIndex()) < 30
+                    episode.Text = "Remaining time: " + StrI(episode.duration - msg.GetIndex()) + " sec"
+                    episode.TextAttrs = {
+                        Color: "#FFCCCCCC",
+                        Font: "Medium",
+                        HAlign: "HRight",
+                        VAlign: "VBottom",
+                        Direction: "LeftToRight"
+                    }
+                    screen.SetContent(episode)
+                    screen.SetPositionNotificationPeriod(1)
+                end if
             elseif msg.isRequestFailed()
                 print "Video request failure: "; msg.GetIndex(); " " msg.GetData() 
                 print msg.GetInfo()
