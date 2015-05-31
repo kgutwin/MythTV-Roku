@@ -88,8 +88,9 @@ archive:
 	@echo "*** packaging $(APPNAME) archive file complete ***"
 
 install: videoplayer
-	@echo "Installing $(APPNAME) to host $(ROKU_DEV_TARGET)"
-	@curl -s -S -F "mysubmit=Install" -F "archive=@$(ZIPREL)/$(APPNAME).zip" -F "passwd=" http://$(ROKU_DEV_TARGET)/plugin_install | grep "<font color" | sed "s/<font color=\"red\">//"
+	@echo "Installing $(APPNAME) to host roku.gutwin.org"
+#	curl -s -S -F "mysubmit=Install" -F "archive=@$(ZIPREL)/$(APPNAME).zip" -F "passwd=" http://$(ROKU_DEV_TARGET)/plugin_install | grep "<font color" | sed "s/<font color=\"red\">//"
+	curl -s -S --digest -F "mysubmit=Install" -F "archive=@$(ZIPREL)/$(APPNAME).zip" -F "passwd=" http://rokudev:nbmubk@roku.gutwin.org/plugin_install
 
 pkg: install
 	@echo "*** Creating Package ***"
