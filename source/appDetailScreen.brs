@@ -69,6 +69,12 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
                     else
                         showList[showIndex].Autoplay = true
                     end if
+                    ' mark all shows after this one to the same autoplay value
+                    i = showIndex
+                    while i < showList.Count()
+                        showList[i].Autoplay = showList[showIndex].Autoplay
+                        i = i + 1
+                    end while
                 end if
                 if msg.GetIndex() = 2
                     OK = ShowDialog3Buttons("Delete", "Delete this episode?", "Cancel", "Delete", "Del & Re-record")

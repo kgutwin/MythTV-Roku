@@ -97,5 +97,10 @@ Function showVideoScreen(showList As Object, showIndex as Integer)
         end if
     end while
 
+    ' handle autoplay
+    if episode.Autoplay
+        showVideoScreen(showList, showIndex + 1)
+    end if
+
 End Function
 
