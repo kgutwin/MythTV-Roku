@@ -28,6 +28,13 @@ Function showDetailScreen(screen As Object, showList As Object, showIndex as Int
     if validateParam(screen, "roSpringboardScreen", "showDetailScreen") = false return -1
     if validateParam(showList, "roArray", "showDetailScreen") = false return -1
 
+    ' preset autoplay
+    for each show in showList
+        if not show.DoesExist("Autoplay")
+            show.Autoplay = false
+        end if
+    next
+
     refreshShowDetail(screen, showList, showIndex)
 
     'remote key id's for left/right navigation
