@@ -44,6 +44,7 @@ Function showVideoScreen(showList As Object, showIndex as Integer)
     'Uncomment his line to dump the contents of the episode to be played
     'PrintAA(episode)
 
+    fellOffTheEnd = false
     while true
         msg = wait(0, port)
 
@@ -81,6 +82,9 @@ Function showVideoScreen(showList As Object, showIndex as Integer)
                 print "Video status: "; msg.GetIndex(); " " msg.GetData() 
             elseif msg.isButtonPressed()
                 print "Button pressed: "; msg.GetIndex(); " " msg.GetData()
+            elseif msg.isFullResult()
+                print "Fell off the end."
+                fellOffTheEnd = true
             else
                 print "Unexpected event type: "; msg.GetType()
             end if
@@ -99,8 +103,11 @@ Function showVideoScreen(showList As Object, showIndex as Integer)
     end while
 
     ' handle autoplay
-    if episode.Autoplay
-        showVideoScreen(showList, showIndex + 1)
+    nextIndex = showIndex + 1
+    if fellOffTheEnd and episode.Autoplay and nextIndex < showList.Count() - 1 and showList[nextIndex].Autoplay
+        ' be sure to start the next episode from the beginning
+        sendBookmark(showList[nextIndex], 0)
+        showVideoScreen(showList, nextIndex)
     end if
 
 End Function
